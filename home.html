@@ -33,10 +33,11 @@
 
 <body class="bg-[#F8FAFC]">
     <!-- navbar -->
-    <div class="navbar bg-base-200 shadow-sm justify-between items-center px-8">
+    <div class="navbar bg-base-200 shadow-sm justify-between items-center px-2 md:px-8">
         <div class="flex flex-row  gap-2 w-full">
-            <img class="w-[25px] md:w-[35px] " src="./assets/github-logo.png" alt="">
-            <h2 class="text-[14px] text-[rgb(31,41,55)] text-wrap md:text-[24px] font-semibold">GitHub <br class="md:hidden"> Issues Tracker</h2>
+            <img class="w-[35px]" src="./assets/github-logo.png" alt="">
+            <h2 class="text-[14px] text-[rgb(31,41,55)] text-wrap md:text-[24px] font-semibold">GitHub <br
+                    class="md:hidden"> Issues Tracker</h2>
         </div>
 
         <div class="flex gap-2">
@@ -45,6 +46,14 @@
             <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass-plus"></i>Search</button>
         </div>
     </div>
+
+    <!-- tabs -->
+    <div role="tablist" class="tabs shadow mt-10 w-[90%] md:w-[80%] mx-auto p-5 bg-slate-50 gap-3 rounded">
+        <a id="all-tab" role="tab " class="tab border border-gray-300 w-[160px] tab-active hover:text-neutral-800 hover:bg-blue-500 bg-blue-800 text-white rounded ">All</a>
+        <a id="open-tab" role="tab" class="tab  border border-gray-300  w-[160px]  rounded">Open</a>
+        <a id="close-tab" role="tab" class="tab  border border-gray-300 w-[160px] rounded">Close</a>
+    </div>
+
 </body>
 
 </html>
