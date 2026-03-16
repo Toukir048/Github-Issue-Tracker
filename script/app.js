@@ -38,6 +38,20 @@ async function getIssues() {
 getIssues();
 
 
+// // Search Operation 
+async function search() {
+    
+    const searchInput = document.getElementById("search-input");
+    const searchText = searchInput.value.toLowerCase();
+    const searchResponse = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
+    const responseData = await searchResponse.json();
+    const searchData = responseData.data;
+    loadSpinner.classList.remove("hidden");
+    passIssues(searchData);
+    loadSpinner.classList.add("hidden");
+
+};
+
 //display issues on card
 const passIssues = (issues) => {
 
