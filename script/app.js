@@ -1,25 +1,50 @@
-const cardContainer = document.getElementById("cards");
-const helpLogo = `<i class="fa-brands fa-hire-a-helper"></i>`;
-const bugLogo = `<i class="fa-solid fa-bug"></i>`;
-const documentsLogo = `<i class="fa-brands fa-readme"></i>`;
-const gooDuseLogo = `<i class="fa-solid fa-clover"></i>`;
-const enhancementLogo = `<i class="fa-solid fa-wand-magic-sparkles"></i>`;
+
 
 // Get the issues from api
 async function getIssues() {
+
     const response = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
     const data = await response.json();
     const apiData = data.data;
+
     passIssues(apiData);
+
+    document.getElementById("all-tab").addEventListener('load', () =>{
+        passIssues(apiData);
+    })
+
+    document.getElementById("all-tab").addEventListener('click', () =>{
+        passIssues(apiData);
+    })
+
+    document.getElementById("open-tab").addEventListener('click', () =>{
+       const openList = apiData.filter(issue => issue.status === "open");
+        passIssues(openList);
+    })
+
+    document.getElementById("close-tab").addEventListener('click', () =>{
+       const closeList = apiData.filter(issue => issue.status === "closed");
+        passIssues(closeList);
+    })
 }
+
+// initial Loading
+getIssues();
+
 
 //display issues on card
 const passIssues = (issues) => {
 
-    const tabCount = document.getElementById("tab-count");
-    const parent = document.getElementById("cards");
-    const totalCount = parent.children.length;
-    tabCount.textContent = totalCount;
+    const cardContainer = document.getElementById("cards");
+    cardContainer.innerHTML = "";
+    // icon pack for labels
+    const helpLogo = `<i class="fa-brands fa-hire-a-helper"></i>`;
+    const bugLogo = `<i class="fa-solid fa-bug"></i>`;
+    const documentsLogo = `<i class="fa-brands fa-readme"></i>`;
+    const gooDuseLogo = `<i class="fa-solid fa-clover"></i>`;
+    const enhancementLogo = `<i class="fa-solid fa-wand-magic-sparkles"></i>`;
+
+
     issues.forEach(issue => {
 
         const newIssue = document.createElement("div");
@@ -84,7 +109,13 @@ const passIssues = (issues) => {
             displayLabel.innerHTML = `${icon} ${label.toUpperCase()}`;
 
             labelBox.appendChild(displayLabel);
+
+            const tabCount = document.getElementById("tab-count");
+            const parent = document.getElementById("cards");
+            const totalCount = parent.children.length;
+            tabCount.textContent = totalCount;
         });
+
 
     });
 
