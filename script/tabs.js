@@ -1,4 +1,5 @@
 const tabs = document.querySelectorAll(".tab-btn");
+const loader = document.getElementById("loading-spinner");
 
 tabs.forEach(tab => {
     tab.addEventListener("click", () => {
@@ -8,6 +9,7 @@ tabs.forEach(tab => {
         });
 
         tab.classList.add("bg-blue-800", "text-white");
+        setTimeout(() => loader.classList.remove("loading","loading-spinner","loading-xl"), 800);
 
     });
 });
