@@ -12,9 +12,6 @@ tabs.forEach(tab => {
 
         tab.classList.add("bg-blue-800", "text-white");
 
-        setTimeout(() => {
-            loader.classList.remove("loading","loading-spinner","loading-xl");
-        }, 800);
 
     });
 });

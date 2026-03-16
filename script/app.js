@@ -1,5 +1,7 @@
+//loading spinner
+const loadSpinner = document.getElementById("loader");
 
-
+loadSpinner.classList.remove("hidden");
 // Get the issues from api
 async function getIssues() {
 
@@ -9,23 +11,27 @@ async function getIssues() {
 
     passIssues(apiData);
 
-    document.getElementById("all-tab").addEventListener('load', () =>{
+    document.getElementById("all-tab").addEventListener('click', () => {
+        loadSpinner.classList.remove("hidden");
         passIssues(apiData);
+        loadSpinner.classList.add("hidden");
     })
 
-    document.getElementById("all-tab").addEventListener('click', () =>{
-        passIssues(apiData);
-    })
-
-    document.getElementById("open-tab").addEventListener('click', () =>{
-       const openList = apiData.filter(issue => issue.status === "open");
+    document.getElementById("open-tab").addEventListener('click', () => {
+        const openList = apiData.filter(issue => issue.status === "open");
+        loadSpinner.classList.remove("hidden");
         passIssues(openList);
+        loadSpinner.classList.add("hidden");
     })
 
-    document.getElementById("close-tab").addEventListener('click', () =>{
-       const closeList = apiData.filter(issue => issue.status === "closed");
+    document.getElementById("close-tab").addEventListener('click', () => {
+        const closeList = apiData.filter(issue => issue.status === "closed");
+        loadSpinner.classList.remove("hidden");
         passIssues(closeList);
+        loadSpinner.classList.add("hidden");
     })
+
+    loadSpinner.classList.add("hidden");
 }
 
 // initial Loading
