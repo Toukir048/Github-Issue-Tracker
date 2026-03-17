@@ -1,3 +1,33 @@
+//Tabs
+
+const tabs = document.querySelectorAll(".tab-btn");
+const loader = document.getElementById("loading-spinner");
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+
+        if (tab.classList.contains("bg-blue-800")) return;
+
+        tabs.forEach(t => {
+            t.classList.remove("bg-blue-800", "text-white");
+        });
+
+        tab.classList.add("bg-blue-800", "text-white");
+
+
+    });
+});
+
+
+
+//icon
+const helpLogo = `<i class="fa-brands fa-hire-a-helper"></i>`;
+const bugLogo = `<i class="fa-solid fa-bug"></i>`;
+const documentsLogo = `<i class="fa-brands fa-readme"></i>`;
+const gooDuseLogo = `<i class="fa-solid fa-clover"></i>`;
+const enhancementLogo = `<i class="fa-solid fa-wand-magic-sparkles"></i>`;
+
+
 //loading spinner
 const loadSpinner = document.getElementById("loader");
 
@@ -38,9 +68,9 @@ async function getIssues() {
 getIssues();
 
 
-// // Search Operation 
+// Search Operation 
 async function search() {
-    
+
     const searchInput = document.getElementById("search-input");
     const searchText = searchInput.value.toLowerCase();
     const searchResponse = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
@@ -57,17 +87,13 @@ const passIssues = (issues) => {
 
     const cardContainer = document.getElementById("cards");
     cardContainer.innerHTML = "";
-    // icon pack for labels
-    const helpLogo = `<i class="fa-brands fa-hire-a-helper"></i>`;
-    const bugLogo = `<i class="fa-solid fa-bug"></i>`;
-    const documentsLogo = `<i class="fa-brands fa-readme"></i>`;
-    const gooDuseLogo = `<i class="fa-solid fa-clover"></i>`;
-    const enhancementLogo = `<i class="fa-solid fa-wand-magic-sparkles"></i>`;
-
 
     issues.forEach(issue => {
 
         const newIssue = document.createElement("div");
+        newIssue.onclick = () => {
+            openModal(issue.id);
+        };
         newIssue.className = `w-[80%] md:w-[270px] mx-auto bg-white rounded-sm shadow-md border-t-4 ${(issue.status) == 'open' ? "border-green-600 " : "border-purple-700"}  md:ml-5 my-5`;
         cardContainer.appendChild(newIssue);
         const formattedDate = new Date(issue.createdAt).toLocaleDateString("en-US");
@@ -141,3 +167,86 @@ const passIssues = (issues) => {
 
 }
 
+async function openModal(id) {
+
+    const response = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+    const data = await response.json();
+    const singleData = data.data;
+
+    const modalContainer = document.getElementById("modal-container");
+    const modalBox = document.getElementById("my_modal_5");
+
+    const formattedDate = new Date(singleData.createdAt).toLocaleDateString("en-US");
+
+    modalBox.showModal();
+
+    modalContainer.innerHTML = `
+        <h2 class="text-xl font-semibold">${singleData.title}</h2>
+
+        <div>
+            <p class="flex items-center gap-2 text-[12px] text-black/50">
+            <span class="rounded-xl text-white ${singleData.status === "open" ? "bg-green-500" : "bg-red-500"}  px-2">${singleData.status}</span>
+            <i class="fa-solid fa-circle text-[7px]"></i>
+            Opened By ${singleData.author.replaceAll("_", " ")}
+            <i class="fa-solid fa-circle text-[7px]"></i>
+            ${formattedDate}
+            </p>
+        </div>
+
+        <div class="labels-container w-[85%] gap-1 flex flex-wrap justify-start"></div>
+
+        <p class="text-[13px] text-black/50">${singleData.description}</p>
+
+        <div class="w-[80%] flex flex-row justify-between">
+            <div>
+                <h4 class="text-[16px] text-black/50">Assignee:</h4>
+                <h4 class="text-[18px] text-black font-bold">${singleData.assignee.replaceAll("_", " ")}</h4>
+            </div>
+
+            <div>
+                <h4 class="text-[16px] text-black/50">Priority:</h4>
+                <h3 class="px-4 ${singleData.priority == 'high'
+            ? "text-red-700 bg-red-400/20"
+            : singleData.priority == 'low'
+                ? "text-gray-700 bg-gray-400/20"
+                : "text-yellow-700 bg-yellow-400/20"
+        } font-semibold rounded-xl">
+                ${singleData.priority.toUpperCase()}
+                </h3>
+            </div>
+        </div>
+
+        <div class="flex justify-end">
+            <button class="btn btn-primary btn-soft mr-5" onclick="document.getElementById('my_modal_5').close()">Close</button>
+        </div>
+    `;
+
+    const modalBase = document.getElementById("modal-container");
+    const labelBox = modalBase.querySelector(".labels-container");
+    const labels = singleData.labels;
+
+    labels.forEach(label => {
+
+        const displayLabel = document.createElement("h4");
+
+        const classLists =
+            label === "bug" ? "inline-block flex flex-wrap gap-1 text-[12px] px-1 mr-[2PX] rounded-xl border-2 border-yellow-300 bg-yellow-300/20 text-yellow-400" :
+                label === "enhancement" ? "inline-block flex flex-wrap gap-1 text-[12px] px-1 mb-[2PX] rounded-xl border-2 border-purple-300 bg-purple-300/20 text-purple-400" :
+                    label === "good first issue" ? "inline-block flex flex-wrap gap-1 text-[12px] px-1 mb-[2PX] rounded-xl border-2 border-green-300 bg-green-300/20 text-green-400" :
+                        label === "documentation" ? "inline-block flex flex-wrap gap-1 text-[12px] px-1 mb-[2PX] rounded-xl border-2 border-pink-300 bg-pink-300/20 text-pink-400" :
+                            "inline-block flex flex-wrap gap-1 text-[12px] px-1 mb-[2PX] rounded-xl border-2 border-red-300 bg-red-300/20 text-red-400";
+
+        displayLabel.className = classLists;
+
+        const icon =
+            label === "bug" ? bugLogo :
+                label === "enhancement" ? enhancementLogo :
+                    label === "good first issue" ? gooDuseLogo :
+                        label === "documentation" ? documentsLogo :
+                            helpLogo;
+
+        displayLabel.innerHTML = `${icon} ${label.toUpperCase()}`;
+
+        labelBox.appendChild(displayLabel);
+    });
+}

@@ -31,7 +31,7 @@
     </style>
 </head>
 
-<body >
+<body>
     <!-- navbar -->
 
     <div class="navbar bg-base-200 shadow-sm justify-between items-center px-2 md:px-8">
@@ -44,17 +44,20 @@
         <div class="flex gap-2">
             <input id="search-input" type="text" placeholder="Search issues..." class="input
             input-bordered w-24 md:w-auto" />
-            <button id="search-btn" onclick="search()" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass-plus"></i>Search</button>
+            <button id="search-btn" onclick="search()" class="btn btn-primary"><i
+                    class="fa-solid fa-magnifying-glass-plus"></i>Search</button>
         </div>
     </div>
 
     <!-- tabs -->
     <div role="tablist" class="tabs shadow mt-10 w-[90%] md:w-[80%] mx-auto p-5 bg-slate-50 gap-3 rounded">
         <a id="all-tab" role="tab "
-            class="tab tab-btn border border-gray-300 w-[160px]  bg-blue-800 text-white rounded " onclick="getIssues()">All</a>
+            class="tab tab-btn border border-gray-300 w-[160px]  bg-blue-800 text-white rounded "
+            onclick="getIssues()">All</a>
         <a id="open-tab" role="tab " class="tab tab-btn  border border-gray-300  w-[160px]  rounded">Open</a>
         <a id="close-tab" role="tab" class="tab  tab-btn border border-gray-300 w-[160px] rounded">Close</a>
     </div>
+    <button id="modal-btn" class="btn">Hello</button>
 
     <!-- issues summary -->
     <section
@@ -82,7 +85,8 @@
 
 
     <!-- issues Card Section -->
-    <section id="cards" class="w-[90%] md:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-gray-50 rounded-b border-gray-500 ">
+    <section id="cards"
+        class="w-[90%] md:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-gray-50 rounded-b border-gray-500 ">
         <!-- <div class="w-[270px] h-[255px] bg-white rounded-sm shadow-md border-t-4 border-green-600 ml-5 my-5">
 
             <div class="border-b-2 h-[180px] border-gray-300">
@@ -117,9 +121,13 @@
         </div> -->
     </section>
 
+    <!-- Modal Section -->
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle bg-purple-600/10">
+        <div id="modal-container" class="modal-box space-y-5">
+        </div>
+    </dialog>
 
     <!-- js link -->
-    <script src="./script/tabs.js"></script>
     <script src="./script/app.js"></script>
 </body>
 
