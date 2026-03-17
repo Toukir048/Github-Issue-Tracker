@@ -206,7 +206,7 @@ async function openModal(id) {
         <div class="w-[80%] flex flex-row justify-between">
             <div>
                 <h4 class="text-[16px] text-black/50">Assignee:</h4>
-                <h4 class="text-[18px] text-black font-bold">${formatName(singleData.author.replaceAll("_", " "))}</h4>
+                <h4 class="text-[18px] text-black font-bold">${formatName(singleData.assignee === ""?"No Assignee":singleData.assignee.replaceAll("_", " "))}</h4>
             </div>
 
             <div>
