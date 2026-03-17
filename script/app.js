@@ -18,7 +18,13 @@ tabs.forEach(tab => {
     });
 });
 
-
+//name formation
+function formatName(name){
+  return name
+    .split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
 
 //icon
 const helpLogo = `<i class="fa-brands fa-hire-a-helper"></i>`;
@@ -124,7 +130,7 @@ const passIssues = (issues) => {
                 </div>
             </div>
             <div class="w-[85%] mx-auto my-2 flex flex-col justify-center items-left ">
-                <p class="text-[13px] text-black/50">${"#" + (issue.id) + " by " + (issue.author.replaceAll("_", " "))}</p>
+                <p class="text-[13px] text-black/50">${"#" + (issue.id) + " by " + (formatName(issue.author.replaceAll("_", " ")))}</p>
                 <p class="text-[13px] text-black/50">${formattedDate}</p>
             </div>
         `
@@ -187,7 +193,7 @@ async function openModal(id) {
             <p class="flex items-center gap-2 text-[12px] text-black/50">
             <span class="rounded-xl text-white ${singleData.status === "open" ? "bg-green-500" : "bg-red-500"}  px-2">${singleData.status}</span>
             <i class="fa-solid fa-circle text-[7px]"></i>
-            Opened By ${singleData.author.replaceAll("_", " ")}
+            Opened By ${formatName(singleData.author.replaceAll("_", " "))}
             <i class="fa-solid fa-circle text-[7px]"></i>
             ${formattedDate}
             </p>
@@ -200,7 +206,7 @@ async function openModal(id) {
         <div class="w-[80%] flex flex-row justify-between">
             <div>
                 <h4 class="text-[16px] text-black/50">Assignee:</h4>
-                <h4 class="text-[18px] text-black font-bold">${singleData.assignee.replaceAll("_", " ")}</h4>
+                <h4 class="text-[18px] text-black font-bold">${formatName(singleData.author.replaceAll("_", " "))}</h4>
             </div>
 
             <div>
@@ -217,7 +223,7 @@ async function openModal(id) {
         </div>
 
         <div class="flex justify-end">
-            <button class="btn btn-primary btn-soft mr-5" onclick="document.getElementById('my_modal_5').close()">Close</button>
+            <button class="btn btn-primary  mr-5" onclick="document.getElementById('my_modal_5').close()">Close</button>
         </div>
     `;
 
