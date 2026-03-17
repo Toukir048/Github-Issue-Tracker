@@ -19,11 +19,11 @@ tabs.forEach(tab => {
 });
 
 //name formation
-function formatName(name){
-  return name
-    .split(" ")
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+function formatName(name) {
+    return name
+        .split(" ")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
 }
 
 //icon
@@ -182,6 +182,13 @@ async function openModal(id) {
     const modalContainer = document.getElementById("modal-container");
     const modalBox = document.getElementById("my_modal_5");
 
+    // Modal box close 
+    modalBox.addEventListener("click", (e) => {
+        if (e.target === modalBox) {
+            modalBox.close();
+        }
+    });
+
     const formattedDate = new Date(singleData.createdAt).toLocaleDateString("en-US");
 
     modalBox.showModal();
@@ -206,7 +213,7 @@ async function openModal(id) {
         <div class="w-[80%] flex flex-row justify-between">
             <div>
                 <h4 class="text-[16px] text-black/50">Assignee:</h4>
-                <h4 class="text-[18px] text-black font-bold">${formatName(singleData.assignee === ""?"No Assignee":singleData.assignee.replaceAll("_", " "))}</h4>
+                <h4 class="text-[18px] text-black font-bold">${formatName(singleData.assignee === "" ? "No Assignee" : singleData.assignee.replaceAll("_", " "))}</h4>
             </div>
 
             <div>
@@ -222,7 +229,7 @@ async function openModal(id) {
             </div>
         </div>
 
-        <div class="flex justify-end">
+        <div class="flex justify-end ">
             <button class="btn btn-primary  mr-5" onclick="document.getElementById('my_modal_5').close()">Close</button>
         </div>
     `;
