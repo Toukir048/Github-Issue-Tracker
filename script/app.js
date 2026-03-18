@@ -76,7 +76,8 @@ getIssues();
 
 // Search Operation 
 async function search() {
-
+    const issueCount = document.getElementById("tab-count");
+    issueCount.textContent = '0';
     const searchInput = document.getElementById("search-input");
     const searchText = searchInput.value.toLowerCase();
     const searchResponse = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
